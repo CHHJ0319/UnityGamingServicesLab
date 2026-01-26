@@ -1,35 +1,24 @@
-using UnityEngine;
-
-public class UIManager : MonoBehaviour
+public static class UIManager
 {
-    public PlayerPanel playerPanel;
+    private static UIController uIController;
+    private static AuthenticationPanel authenticationPanel;
 
-    private void OnEnable()
+    public static void SetUIController(UIController controller)
     {
-        UIEvents.OnCreditUpdated += UpdateCreditsText;
-        UIEvents.OnInventoryLoaded += ClearInventory;
-        UIEvents.OnInventoryItemAdded += AddInvetoryItem;
+        uIController = controller;
     }
 
-    private void OnDisable()
+    public static void SetauthenticationPanel(AuthenticationPanel panel)
     {
-        UIEvents.OnCreditUpdated -= UpdateCreditsText;
-        UIEvents.OnInventoryLoaded -= ClearInventory;
-        UIEvents.OnInventoryItemAdded -= AddInvetoryItem;
+        authenticationPanel = panel;
     }
 
-    public void UpdateCreditsText(int credits)
+    public static void ShowPopupPanel(string message)
     {
-        playerPanel.UpdateCreditsText(credits);
-    }
+        if (uIController != null)
+        {
+            uIController.ShowPopupPanel(message);
+        }
 
-    public void ClearInventory()
-    {
-        playerPanel.ClearInventory();
-    }
-
-    public void AddInvetoryItem(string itemName)
-    {
-        playerPanel.AddInvetoryItem(itemName);
     }
 }
