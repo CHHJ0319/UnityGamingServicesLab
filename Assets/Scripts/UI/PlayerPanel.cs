@@ -20,6 +20,7 @@ public class PlayerPanel : MonoBehaviour
             Destroy(item.gameObject);
         }
     }
+
     public void AddInvetoryItem(string itemName)
     {
         GameObject newItem = Instantiate(inventoryItemPrefabs, inventory);
