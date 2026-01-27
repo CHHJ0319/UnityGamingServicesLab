@@ -20,7 +20,7 @@ public class MarketItem : MonoBehaviour
         listingId = listing.listingId;
 
         if (nameText != null) nameText.text = listing.inventoryItemId;
-        if (priceText != null) priceText.text = $"{listing.price} {listing.currencyId}";
+        if (priceText != null) priceText.text = $"{listing.price}C";
 
         string description = ItemDescriptions.GetDescription(listing.inventoryItemId);
         if (descriptionText != null) descriptionText.text = description;

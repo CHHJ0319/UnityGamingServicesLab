@@ -29,6 +29,9 @@ public class NPCController : MonoBehaviour
             {
                 playerPanel.gameObject.SetActive(true);
                 marketPanel.gameObject.SetActive(true);
+
+                DataManager.UpdatePlayerPanel();
+                DataManager.UpdateMarkerPanel();
             }
         }
     }

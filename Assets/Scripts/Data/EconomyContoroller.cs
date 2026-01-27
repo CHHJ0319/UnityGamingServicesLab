@@ -11,18 +11,6 @@ public class EconomyContoroller : MonoBehaviour
         DataManager.SetEconomyContoroller(this);
     }
 
-    private void OnEnable()
-    {
-        GameEvents.OnLoginSuccess += GetPlayerCredits;
-        GameEvents.OnLoginSuccess += GetInventoryItems;
-    }
-
-    private void OnDisable()
-    {
-        GameEvents.OnLoginSuccess -= GetPlayerCredits;
-        GameEvents.OnLoginSuccess -= GetInventoryItems;
-    }
-
     public async void GetPlayerCredits()
     {
         try

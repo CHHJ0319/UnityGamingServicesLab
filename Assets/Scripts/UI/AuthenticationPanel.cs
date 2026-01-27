@@ -86,8 +86,7 @@ public class AuthenticationPanel : MonoBehaviour
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
             UIManager.ShowPopupPanel("로그인 성공");
 
-            GameEvents.Login();
-            gameObject.SetActive(false);
+            gameObject.SetActive(false);  
         }
         catch (AuthenticationException e)
         {
