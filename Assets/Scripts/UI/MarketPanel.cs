@@ -68,6 +68,18 @@ public class MarketPanel : MonoBehaviour
                 UIManager.ShowPopupPanel("거래소 목록 0개");
                 return;
             }
+
+            foreach (var listing in res.listings)
+            {
+                if (marketItemPrefabs == null || market == null)
+                {
+                    Debug.Log($"Listing: {listing.listingId} price={listing.price}");
+                    continue;
+                }
+
+                GameObject newItem = Instantiate(marketItemPrefabs, market);
+                newItem.GetComponent<MarketItem>().Bind(listing);
+            }
         }
         catch (Exception e)
         {

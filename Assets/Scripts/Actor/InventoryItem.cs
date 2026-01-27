@@ -22,10 +22,11 @@ public class InventoryItem : MonoBehaviour
     public void Bind(
         PlayersInventoryItem item)
     {
+        playersInventoryItemId = item.PlayersInventoryItemId;
+
         if (nameText != null) nameText.text = item.GetItemDefinition().Name;
 
         string description = ItemDescriptions.GetDescription(item.InventoryItemId);
-
         if (descriptionText != null) descriptionText.text = description;
 
         if (sellBtn != null)
@@ -37,8 +38,6 @@ public class InventoryItem : MonoBehaviour
 
     private async Task SellAsync()
     {
-        Debug.Log($"[InventoryRowUI.SellAsync] playersInventoryItemId: '{playersInventoryItemId}'");
-
         if (string.IsNullOrEmpty(playersInventoryItemId))
         {
             Debug.LogError("[SellAsync] playersInventoryItemId is null or empty!");
