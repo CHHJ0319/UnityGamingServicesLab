@@ -51,6 +51,7 @@ public class AuthenticationPanel : MonoBehaviour
 
             await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
             UIManager.ShowPopupPanel("회원가입 성공. 이제 로그인");
+            gameObject.SetActive(false);
         }
         catch (AuthenticationException e)
         {
@@ -86,11 +87,7 @@ public class AuthenticationPanel : MonoBehaviour
             UIManager.ShowPopupPanel("로그인 성공");
 
             GameEvents.Login();
-
-            //if (marketDemo != null)
-            //{
-            //    await marketDemo.RefreshAllAsync();
-            //}
+            gameObject.SetActive(false);
         }
         catch (AuthenticationException e)
         {
