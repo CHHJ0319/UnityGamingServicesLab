@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Services.Economy.Model;
 using UnityEngine;
 
 public class PlayerPanel : MonoBehaviour
@@ -21,15 +22,12 @@ public class PlayerPanel : MonoBehaviour
         }
     }
 
-    public void AddInvetoryItem(string itemName)
+    public void AddInvetoryItem(PlayersInventoryItem item)
     {
-        GameObject newItem = Instantiate(inventoryItemPrefabs, inventory);
+        if (item.InventoryItemId == "ITEM1") return;
 
-        var textMesh = newItem.transform.GetChild(0).GetComponentInChildren<TextMeshProUGUI>();
-        if (textMesh != null)
-        {
-            textMesh.text = itemName;
-        }
+        GameObject newItem = Instantiate(inventoryItemPrefabs, inventory);
+        newItem.GetComponent<InventoryItem>().Bind(item);
     }
 
 }

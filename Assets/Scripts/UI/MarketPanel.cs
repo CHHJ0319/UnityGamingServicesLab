@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
-using Unity.Services.Economy;
+using Unity.Services.CloudCode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,14 @@ public class MarketPanel : MonoBehaviour
 
     public GameObject marketItemPrefabs;
     public Transform market;
+
+    private int marketLimit = 30;
+    private string marketSort = "NEWEST";
+
+    private void Awake()
+    {
+        DataManager.SetMarketPanel(this);
+    }
 
     void Start()
     {
@@ -26,7 +35,7 @@ public class MarketPanel : MonoBehaviour
         }
 
         DataManager.UpdatePlayerPanel();
-        //await RefreshMarketAsync();
+        GetMarketItems();
     }
 
     public void ClearMarket()
@@ -37,4 +46,33 @@ public class MarketPanel : MonoBehaviour
         }
     }
 
+    public async void GetMarketItems()
+    {
+        ClearMarket();
+
+        try 
+        {
+            var args = new Dictionary<string, object>
+            {
+                { "limit", marketLimit },
+                { "sort", marketSort }
+            };
+
+            MarketListResult res = await CloudCodeService.Instance.CallEndpointAsync<MarketListResult>(
+                    "Mkt_GetActiveListings",
+                    args
+                );
+
+            if (res.listings == null)
+            {
+                UIManager.ShowPopupPanel("거래소 목록 0개");
+                return;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+            UIManager.ShowPopupPanel("거래소 조회 실패 (Cloud Code/스크립트명 확인)");
+        }
+    }
 }

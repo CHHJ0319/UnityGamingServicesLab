@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Services.Economy.Model;
 using UnityEngine;
 
 public class UIController : MonoBehaviour
@@ -16,14 +17,12 @@ public class UIController : MonoBehaviour
     {
         UIEvents.OnCreditUpdated += UpdateCreditsText;
         UIEvents.OnInventoryLoaded += ClearInventory;
-        UIEvents.OnInventoryItemAdded += AddInvetoryItem;
     }
 
     private void OnDisable()
     {
         UIEvents.OnCreditUpdated -= UpdateCreditsText;
         UIEvents.OnInventoryLoaded -= ClearInventory;
-        UIEvents.OnInventoryItemAdded -= AddInvetoryItem;
     }
 
     public void UpdateCreditsText(int credits)
@@ -36,9 +35,9 @@ public class UIController : MonoBehaviour
         playerPanel.ClearInventory();
     }
 
-    public void AddInvetoryItem(string itemName)
+    public void AddInvetoryItem(PlayersInventoryItem item)
     {
-        playerPanel.AddInvetoryItem(itemName);
+        playerPanel.AddInvetoryItem(item);
     }
 
     public void ShowPopupPanel(string message)

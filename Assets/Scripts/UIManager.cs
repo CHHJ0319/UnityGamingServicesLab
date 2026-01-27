@@ -1,3 +1,5 @@
+using Unity.Services.Economy.Model;
+
 public static class UIManager
 {
     private static UIController uIController;
@@ -20,5 +22,10 @@ public static class UIManager
             uIController.ShowPopupPanel(message);
         }
 
+    }
+
+    public static void AddInvetoryItem(PlayersInventoryItem item)
+    {
+        uIController.AddInvetoryItem(item);
     }
 }

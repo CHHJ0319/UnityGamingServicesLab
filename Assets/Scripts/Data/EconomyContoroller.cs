@@ -59,27 +59,12 @@ public class EconomyContoroller : MonoBehaviour
 
             UIEvents.ResetInventory();
 
-            GetInventoryOptions options = new GetInventoryOptions
-            {
-                ItemsPerFetch = 5
-            };
-
-            GetInventoryResult inventoryResult = await EconomyService.Instance.PlayerInventory.GetInventoryAsync(options);
+            GetInventoryResult inventoryResult = await EconomyService.Instance.PlayerInventory.GetInventoryAsync();
             List<PlayersInventoryItem> firstFiveItems = inventoryResult.PlayersInventoryItems;
-
-            if (inventoryResult.HasNext)
-            {
-                inventoryResult = await inventoryResult.GetNextAsync(5);
-                List<PlayersInventoryItem> nextFiveItems = inventoryResult.PlayersInventoryItems;
-            }
 
             foreach (var item in inventoryResult.PlayersInventoryItems)
             {
-                var definition = item.GetItemDefinition();
-
-                string itemName = definition.Name;
-
-                UIEvents.AddInventoryItem(itemName);
+                UIManager.AddInvetoryItem(item);
             }
 
         }
@@ -95,7 +80,7 @@ public class EconomyContoroller : MonoBehaviour
     {
         try
         {
-            string purchaseID = "PURCHASE1";
+            string purchaseID = "PURCHASE_SALAMANDER_SCALE_WITH_CREDITS";
             MakeVirtualPurchaseResult purchaseResult = await EconomyService.Instance.Purchases.MakeVirtualPurchaseAsync(purchaseID);
 
         }
